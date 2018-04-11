@@ -4,7 +4,7 @@
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
-       http://www.apache.org/licenses/LICENSE-2.0
+       http://www.apache.org/licenses/LICENSE.txt-2.0
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -12,7 +12,6 @@
    limitations under the License.
 """
 from __future__ import unicode_literals
-from kiali.model.apiObject import ApiJsonEncoder
 
 import codecs
 import base64
@@ -35,11 +34,65 @@ except ImportError:
     from urllib import quote, urlencode, quote_plus
 
 
+class ApiObject(object):
+
+    __slots__ = []
+
+    defaults = dict()
+
+    def __init__(self, dictionary=dict()):
+        udict = ApiObject.transform_dict_to_underscore(dictionary)
+        for k in self.__slots__:
+            setattr(self, k, udict.get(k,self.defaults.get(k)))
+
+    def to_json_object(self):
+        dictionary = {}
+        for attribute in self.__slots__:
+            if hasattr(self,attribute):
+                dictionary[attribute] = getattr(self,attribute)
+        return ApiObject.transform_dict_to_camelcase(dictionary)
+
+    @staticmethod
+    def _to_camelcase(word):
+        s = ''.join(x.capitalize() or '_' for x in word.split('_'))
+        return ''.join([s[0].lower(), s[1:]])
+
+    @staticmethod
+    def _to_underscore(word):
+        return ''.join(["_" + c.lower() if c.isupper() else c for c in word]).strip('_')
+
+    @staticmethod
+    def transform_dict_to_camelcase(dictionary):
+        if dictionary is None:
+            return dict()
+        return dict((ApiObject._to_camelcase(k), v) for k, v in dictionary.items() if v is not None)
+
+    @staticmethod
+    def transform_dict_to_underscore(dictionary):
+        if dictionary is None:
+            return dict()
+        return dict((ApiObject._to_underscore(k), v) for k, v in dictionary.items() if v is not None)
+
+    @classmethod
+    def list_to_object_list(cls, o):
+        if o is not None:
+            return [cls(ob) for ob in o]
+        return []
+
+class ApiJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ApiObject):
+            return obj.to_json_object()
+        else:
+            return json.JSONEncoder.default(self, obj)
+
 class KialiHTTPErrorProcessor(HTTPErrorProcessor):
     def http_response(self, request, response):
         return HTTPErrorProcessor.http_response(self, request, response)
 
     https_response = http_response
+
+
 
 class KialiBaseClient(object):
     """
@@ -119,8 +172,6 @@ class KialiBaseClient(object):
 
             return data
 
-        except Exception as e:
-            self._handle_error(e)
 
         finally:
             if res:
@@ -153,37 +204,6 @@ class KialiBaseClient(object):
     def _serialize_object(o):
         return json.dumps(o, cls=ApiJsonEncoder)
 
-    # def _handle_error(self, e):
-    #     if isinstance(e, HTTPError):
-    #         # Cast to HawkularMetricsError
-    #         ee = HawkularError(e.url, e.code, e.msg, e.hdrs, e.fp)
-    #         err_json = e.read()
-    #
-    #         try:
-    #             err_d = json.loads(err_json)
-    #             ee.msg = err_d['errorMsg']
-    #         except:
-    #             # Keep the original payload, couldn't parse it
-    #             ee.msg = err_json
-    #         raise ee
-    #
-    #     elif isinstance(e, URLError):
-    #         # Cast to HawkularMetricsConnectionError
-    #         ee = HawkularConnectionError(e)
-    #         ee.msg = "Error, could not send event(s) to the Hawkular Metrics: " + str(e.reason)
-    #         raise ee
-    #     elif isinstance(e, KeyError):
-    #         # Cast to HawkularMetricsStatusError
-    #         ee = HawkularStatusError(e)
-    #         ee.msg = "Error, unable to get implementation version for metrics: "
-    #         raise ee
-    #     elif isinstance(e, ValueError):
-    #         # Cast to HawkularMetricsStatusError
-    #         ee = HawkularStatusError(e)
-    #         ee.msg = "Error, unable to determine implementation version for metrics: "
-    #         raise ee
-    #     else:
-    #         raise e
 
     def _get_url(self, parameter):
         return self._get_base_url() + parameter

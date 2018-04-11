@@ -1,13 +1,5 @@
-from kiali.model.data import Data
-from kiali.model.edge import Edge
-from kiali.model.elements import Elements
-from kiali.model.health import Health
-from kiali.model.namespace import Namespace
-from kiali.model.node import Node
-from kiali.model.rule import Rule
-from kiali.model.graph import Graph
-from kiali.model.service import Service
-from kiali.service.client import KialiBaseClient
+from kiali.models import *
+from kiali.client import KialiBaseClient
 
 class KialiClient(KialiBaseClient):
     def namespace_list(self):
@@ -26,13 +18,13 @@ class KialiClient(KialiBaseClient):
 
     def services_list(self,namespace):
         dict = self._get(self._get_services_url((namespace)))
-        dict["services"] = Service.list_to_object_list(dict["services"])
+        dict["services"] = Rule.list_to_object_list(dict["services"])
         return dict
 
 
     def service_details(self, namespace, service):
         dict = self._get(self.get_services_details_url(namespace, service))
-        return Service.list_to_object_list([dict])[0]
+        return Rule.list_to_object_list([dict])[0]
 
     def service_metrics(self,namespace,service):
         return self._get(self._get_service_metrics_url(namespace, service))

@@ -32,7 +32,7 @@ To install, run ``python setup.py install`` if you installed from source code, o
 
 
 ## General Usage
-To instiante a Kiali Client, use KialiClient() method. It requires the a host, username and password
+To instiante a Kiali Client, use KialiClient() method. It requires the `host`, `username` and `password` parameters
 
 ```python
 >>> from kiali import KialiClient
@@ -43,6 +43,9 @@ Another parameters possible to use with Client
 * host (default: `localhost`)
 * scheme (default: `http`, options: `https` and `http`)
 * port(default: `80`)
+
+### JSON for the Python Dictionaries
+For `Namespace`, Rule`, `Service`, `Health`, `Graph`, `Edges` and `Nodes` a to_json_object() method is available for quick conversion of python dictionary into JSON
 
 
 # Methods Available
@@ -63,11 +66,10 @@ Usage Example:
 
 
 ## Rules List
-- This method will return a dictionary with `Namespace` object and a list of Istio `Rules` object
+- This method will return a dictionary with `Namespace` object and a list of Istio `Rule` object
 
 - Required Parameter (`namespace`)
 
-Usage Example:
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
@@ -82,7 +84,6 @@ Usage Example:
 - This method will return a `Rule` object with `Namespace` object
 - Required Parameter (`namespace`, `rule`)
 
-Usage Example:
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
@@ -98,7 +99,6 @@ Usage Example:
 
 - Required Parameter (`namespace`)
 
-Usage Example:
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
@@ -114,7 +114,6 @@ Usage Example:
 - Required Parameter (`namespace`, `service`)
 
 
-Usage Example:
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
@@ -128,8 +127,6 @@ Usage Example:
 
 - Required Parameter (`namespace`, `service`)
 
-
-Usage Example:
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
@@ -145,7 +142,6 @@ metrics = client.service_metrics(namespace='istio-system', service="grafana")
 
 - Required Parameter (`namespace`, `service`)
 
-Usage Example:
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
@@ -159,7 +155,6 @@ Usage Example:
 - Required Parameter (`namespace`)
 - Additional Parameters that can be included eg: {params={'interval': '7d', offset: '30m'}}
 
-Usage example
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
@@ -167,17 +162,42 @@ Usage example
 {'elements': {'nodes': [{'data': {'id': 'n1', 'version': 'unknown', 'text': 'a <1.00pm>', 'rate': '1.0000', 'service': 'a.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n2', 'version': 'unknown', 'text': 'b', 'rate': '0.9983', 'service': 'b.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n3', 'version': 'unknown', 'text': 'c', 'rate': '0.9983', 'service': 'c.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n4', 'version': 'unknown', 'text': 'd', 'rate': '1.0000', 'service': 'd.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n5', 'version': 'unknown', 'text': 'e', 'rate': '1.0000', 'service': 'e.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n6', 'version': 'unknown', 'text': 'f', 'rate': '1.0000', 'service': 'f.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n0', 'version': 'unknown', 'text': 'unknown', 'service': 'unknown'}}], 'edges': [{'data': {'id': 'e0', 'source': 'n0', 'target': 'n1', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}, {'data': {'id': 'e1', 'source': 'n1', 'target': 'n2', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e2', 'source': 'n2', 'target': 'n3', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e3', 'source': 'n3', 'target': 'n4', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}, {'data': {'id': 'e4', 'source': 'n4', 'target': 'n5', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}, {'data': {'id': 'e5', 'source': 'n5', 'target': 'n6', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}]}}
 ```
 
+
+### Aditional Parameters
+- Additional Parameters can be included on a params dictionary to query a graph namespace
+- Available Parameters are `offset` and `interval`
+
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
+>>> client.graph_namespace(namespace='kiali-test-depth', params={'interval': '7d'})
+{'elements': {'nodes': [{'data': {'id': 'n1', 'version': 'unknown', 'text': 'a <1.00pm>', 'rate': '0.9983', 'service': 'a.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n2', 'version': 'unknown', 'text': 'b', 'rate': '0.9983', 'service': 'b.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n3', 'version': 'unknown', 'text': 'c', 'rate': '0.9983', 'service': 'c.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n4', 'version': 'unknown', 'text': 'd', 'rate': '0.9983', 'service': 'd.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n5', 'version': 'unknown', 'text': 'e', 'rate': '0.9882', 'service': 'e.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n6', 'version': 'unknown', 'text': 'f', 'rate': '0.9983', 'service': 'f.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n0', 'version': 'unknown', 'text': 'unknown', 'service': 'unknown'}}], 'edges': [{'data': {'id': 'e0', 'source': 'n0', 'target': 'n1', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e1', 'source': 'n1', 'target': 'n2', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e2', 'source': 'n2', 'target': 'n3', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e3', 'source': 'n3', 'target': 'n4', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e4', 'source': 'n4', 'target': 'n5', 'text': '0.99', 'color': 'green', 'style': 'solid', 'rate': '0.9882'}}, {'data': {'id': 'e5', 'source': 'n5', 'target': 'n6', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}]}}
+```
+
+
+
 ## Graph Service
 
 - This method will return a `Graph`, containing a dictionary with array of `Node` object and array of `Edges`
 - Required Parameter (`namespace`)
-- Additional Parameters that can be included eg: {params={'interval': '7d', offset: '30m'}}
 
-Usage example
 ```python
 >>> from kiali import KialiClient
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
 >>> client.graph_service(namespace='kiali-test-depth', service='f')
+{'elements': {'nodes': [{'data': {'id': 'n0', 'version': 'unknown', 'text': 'e', 'service': 'e.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n1', 'version': 'unknown', 'text': 'f', 'rate': '1.0000', 'service': 'f.kiali-test-depth.svc.cluster.local'}}], 'edges': [{'data': {'id': 'e0', 'source': 'n0', 'target': 'n1', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}]}}
+
+```
+
+### Aditional Parameters
+- Additional Parameters can be included on a params dictionary to query a service graph
+- Available Parameters are `offset` and `interval`
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
+>>> client.graph_service(namespace='kiali-test-depth', service='f', params={'interval': '7d', 'offset': '30m'})
 {'elements': {'nodes': [{'data': {'id': 'n0', 'version': 'unknown', 'text': 'e', 'service': 'e.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n1', 'version': 'unknown', 'text': 'f', 'rate': '1.0000', 'service': 'f.kiali-test-depth.svc.cluster.local'}}], 'edges': [{'data': {'id': 'e0', 'source': 'n0', 'target': 'n1', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}]}}
 
 ```
