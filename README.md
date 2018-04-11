@@ -45,9 +45,9 @@ Another parameters possible to use with Client
 * port(default: `80`)
 
 
-### Methods Available
+# Methods Available
 
-#### Namespace List
+## Namespace List
 - This method will return a list of `Namespace` object
 
 - No Required Parameters
@@ -62,7 +62,7 @@ Usage Example:
 
 
 
-#### Rules List
+## Rules List
 - This method will return a dictionary with `Namespace` object and a list of Istio `Rules` object
 
 - Required Parameter (`namespace`)
@@ -77,7 +77,7 @@ Usage Example:
 
 
 
-#### Rule Detail
+## Rule Detail
 
 - This method will return a `Rule` object with `Namespace` object
 - Required Parameter (`namespace`, `rule`)
@@ -92,7 +92,7 @@ Usage Example:
 
 
 
-#### Services List
+## Services List
 
 - This method will return a dictionary with `Namespace` object and list of `Service` object
 
@@ -106,7 +106,7 @@ Usage Example:
 {'namespace': {'name': 'istio-system'}, 'services': [{'name': 'grafana', 'replicas': 1, 'availableReplicas': 1, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'istio-ingress', 'replicas': 1, 'availableReplicas': 1, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'istio-mixer', 'replicas': 1, 'availableReplicas': 1, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'istio-pilot', 'replicas': 1, 'availableReplicas': 1, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'jaeger-agent', 'replicas': 0, 'availableReplicas': 0, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'jaeger-collector', 'replicas': 0, 'availableReplicas': 0, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'jaeger-query', 'replicas': 0, 'availableReplicas': 0, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'kiali', 'replicas': 1, 'availableReplicas': 1, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'prometheus', 'replicas': 1, 'availableReplicas': 1, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}, {'name': 'zipkin', 'replicas': 0, 'availableReplicas': 0, 'unavailableReplicas': 0, 'istioSidecar': False, 'requestCount': '0', 'requestErrorCount': '0', 'errorRate': '0'}]}
 ```
 
-#### Service Details
+## Service Details
 
 
 - This method will return a `Service` object
@@ -123,7 +123,7 @@ Usage Example:
 ```
 
 
-##### Service Metrics
+## Service Metrics
 - This method will return a dictonary of Service metrics
 
 - Required Parameter (`namespace`, `service`)
@@ -139,7 +139,7 @@ metrics = client.service_metrics(namespace='istio-system', service="grafana")
 ```
 
 
-##### Service Heath
+## Service Heath
 
 - This method will return a `Health` object
 
@@ -153,7 +153,7 @@ Usage Example:
 {'healthyReplicas': 1, 'totalReplicas': 1}
 ```
 
-##### Graph Namespace
+## Graph Namespace
 
 - This method will return a `Graph`, containing a dictionary with array of `Node` object and array of `Edges`
 - Required Parameter (`namespace`)
@@ -167,7 +167,7 @@ Usage example
 {'elements': {'nodes': [{'data': {'id': 'n1', 'version': 'unknown', 'text': 'a <1.00pm>', 'rate': '1.0000', 'service': 'a.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n2', 'version': 'unknown', 'text': 'b', 'rate': '0.9983', 'service': 'b.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n3', 'version': 'unknown', 'text': 'c', 'rate': '0.9983', 'service': 'c.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n4', 'version': 'unknown', 'text': 'd', 'rate': '1.0000', 'service': 'd.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n5', 'version': 'unknown', 'text': 'e', 'rate': '1.0000', 'service': 'e.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n6', 'version': 'unknown', 'text': 'f', 'rate': '1.0000', 'service': 'f.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n0', 'version': 'unknown', 'text': 'unknown', 'service': 'unknown'}}], 'edges': [{'data': {'id': 'e0', 'source': 'n0', 'target': 'n1', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}, {'data': {'id': 'e1', 'source': 'n1', 'target': 'n2', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e2', 'source': 'n2', 'target': 'n3', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '0.9983'}}, {'data': {'id': 'e3', 'source': 'n3', 'target': 'n4', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}, {'data': {'id': 'e4', 'source': 'n4', 'target': 'n5', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}, {'data': {'id': 'e5', 'source': 'n5', 'target': 'n6', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}]}}
 ```
 
-##### Graph Service
+## Graph Service
 
 - This method will return a `Graph`, containing a dictionary with array of `Node` object and array of `Edges`
 - Required Parameter (`namespace`)
