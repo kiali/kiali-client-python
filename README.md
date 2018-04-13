@@ -45,8 +45,17 @@ Another parameters possible to use with Client
 * port(default: `80`)
 
 ### JSON for the Python Dictionaries
-For `Namespace`, Rule`, `Service`, `Health`, `Graph`, `Edges` and `Nodes` a to_json_object() method is available for quick conversion of python dictionary into JSON
+- For `Namespace`, `Rule`, `Service`, `Health`, `Graph`, `Edges` and `Nodes` a to_json_object() method is available for quick conversion of python dictionary into JSON
+- If you want to convert JSON with json_dumps, import `ApiObject`:
 
+
+```python
+>>> from kiali import KialiClient
+>>> from kiali.client import ApiJsonEncoder
+>>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
+>>> namespaces = client.namespace_list()
+>> json.dumps(namespace, cls=ApiJsonEncoder)
+```
 
 # Methods Available
 
