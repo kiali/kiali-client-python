@@ -59,6 +59,18 @@ Another parameters possible to use with Client
 
 # Methods Available
 
+## Api Status
+
+- This method will return a dictionary of status
+
+Usage Example:
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
+>>> client.status()
+{'status': {'Kiali console version': '0.2.10-SNAPSHOT.653', 'Kiali core commit hash': '3d8f22fe278e184f3682e88f3487623db950a07d', 'Kiali core version': '0.0.1.Final-SNAPSHOT', 'Kiali state': 'running'}, 'products': [{'name': 'Istio', 'version': '0.7.1'}, {'name': 'Prometheus', 'version': '2.0.0'}, {'name': 'Kubernetes', 'version': 'v1.7.6+a08f5eeb62'}]}
+```
+
 ## Namespace List
 - This method will return a list of `Namespace` object
 
