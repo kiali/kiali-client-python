@@ -3,7 +3,7 @@ from kiali.client import ApiObject
 class Data (ApiObject):
     __slots__ = [
         'id', "source", 'target', 'version', 'text', 'color', 'style', 'rate', 'service', 'group_by',
-        "is_root", "is_circuit_breaker", "flag_circuit_breaker"
+        "is_root", "has_CB"
     ]
 
     def __repr__(self):
