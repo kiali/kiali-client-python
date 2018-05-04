@@ -12,13 +12,4 @@
    limitations under the License.
 """
 from kiali.api import KialiClient
-from kiali.models import *
-
-__all__ = ['KialiClient', 'Data',
-            'Edge',
-            'Graph',
-            'Health',
-            'Namespace',
-            'Node',
-            'Rule',
-            'Service']
+__all__ = ['KialiClient']

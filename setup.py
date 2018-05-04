@@ -6,7 +6,7 @@ from distutils.core import setup
 
 setup(name='kiali-client',
       packages=['kiali'],
-      version='0.3.7',
+      version='0.4.0',
       description='Python client to communicate with Kiali server over HTTP(S)',
       author='Guilherme Baufaker Rego',
       author_email='gbaufake@redhat.com',

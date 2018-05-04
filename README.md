@@ -44,17 +44,12 @@ Another parameters possible to use with Client
 * scheme (default: `http`, options: `https` and `http`)
 * port(default: `80`)
 
-### JSON for the Python Dictionaries
-- For `Namespace`, `Rule`, `Service`, `Health`, `Graph`, `Edges` and `Nodes` a to_json_object() method is available for quick conversion of python dictionary into JSON
-- If you want to convert JSON with json_dumps, import `ApiObject`:
-
 
 ```python
 >>> from kiali import KialiClient
 >>> from kiali.client import ApiJsonEncoder
 >>> client = KialiClient(host='kiali-url.com', username='jdoe', password='password')
 >>> namespaces = client.namespace_list()
->> json.dumps(namespace, cls=ApiJsonEncoder)
 ```
 
 # Methods Available
@@ -72,7 +67,7 @@ Usage Example:
 ```
 
 ## Namespace List
-- This method will return a list of `Namespace` object
+- This method will return a list of Namespace
 
 - No Required Parameters
 
@@ -87,7 +82,7 @@ Usage Example:
 
 
 ## Rules List
-- This method will return a dictionary with `Namespace` object and a list of Istio `Rule` object
+- This method will return a dictionary with Namespace and a list of Istio Rule
 
 - Required Parameter (`namespace`)
 
@@ -102,7 +97,7 @@ Usage Example:
 
 ## Rule Detail
 
-- This method will return a `Rule` object with `Namespace` object
+- This method will return a dictonary with `Rule` and `Namespace`
 - Required Parameter (`namespace`, `rule`)
 
 ```python
@@ -116,7 +111,7 @@ Usage Example:
 
 ## Services List
 
-- This method will return a dictionary with `Namespace` object and list of `Service` object
+- This method will return a dictionary with `Namespace` and list of `Service`
 
 - Required Parameter (`namespace`)
 
@@ -130,7 +125,7 @@ Usage Example:
 ## Service Details
 
 
-- This method will return a `Service` object
+- This method will return a `Service`
 
 - Required Parameter (`namespace`, `service`)
 
@@ -159,7 +154,7 @@ metrics = client.service_metrics(namespace='istio-system', service="grafana")
 
 ## Service Heath
 
-- This method will return a `Health` object
+- This method will return a dictonary with `Health`
 
 - Required Parameter (`namespace`, `service`)
 
@@ -172,7 +167,7 @@ metrics = client.service_metrics(namespace='istio-system', service="grafana")
 
 ## Graph Namespace
 
-- This method will return a `Graph`, containing a dictionary with array of `Node` object and array of `Edges`
+- This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
 - Required Parameter (`namespace`)
 - Additional Parameters that can be included eg: {params={'interval': '7d', offset: '30m'}}
 
@@ -200,7 +195,7 @@ metrics = client.service_metrics(namespace='istio-system', service="grafana")
 
 ## Graph Service
 
-- This method will return a `Graph`, containing a dictionary with array of `Node` object and array of `Edges`
+- This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
 - Required Parameter (`namespace`)
 
 ```python
