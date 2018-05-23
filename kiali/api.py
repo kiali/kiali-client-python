@@ -3,7 +3,7 @@ from kiali.client import KialiBaseClient
 class KialiClient(KialiBaseClient):
 
     def namespace_list(self):
-        return self._get(self._get_namespaces_url())
+        return self._get(self._get_namespace_url())
 
     def istio_config_list(self, namespace):
         return self._get(self._get_istio_config_url(namespace))
@@ -17,8 +17,8 @@ class KialiClient(KialiBaseClient):
     def service_detail(self, namespace, service):
         return self._get(self.get_service_detail_url(namespace, service))
 
-    def service_metrics(self, namespace, service):
-        return self._get(self._get_service_metrics_url(namespace, service))
+    def service_metric(self, namespace, service):
+        return self._get(self._get_service_metric_url(namespace, service))
 
     def service_health(self, namespace, service):
        return self._get(self._get_service_health_url(namespace, service))
