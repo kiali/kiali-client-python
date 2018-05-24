@@ -149,7 +149,6 @@ class KialiBaseClient(object):
     def _get_url(self, parameter):
         return self._get_base_url() + parameter
 
-
     def status(self):
         return self._get(self._get_url('status'))
 
@@ -159,31 +158,36 @@ class KialiBaseClient(object):
     def jaeger(self):
         return self._get(self._get_url('jaeger'))
 
-    def _get_namespaces_url(self):
+    def _get_namespace_url(self):
         return self._get_base_url() + 'namespaces'
 
-    def _get_rules_url(self, namespace):
-        return self._get_namespaces_url() + "/" + namespace + '/rules'
+    def _get_namespace_metrics_url(self, namespace):
+        return self._get_base_url() + 'namespaces' + "/" + namespace + "/metrics"
 
-    def _get_rules_detail_url(self, namespace, rule):
-        return self._get_rules_url(namespace) + "/" + rule
+    def _get_istio_config_url(self, namespace):
+        return self._get_namespace_url() + "/" + namespace + '/istio'
 
-    def _get_services_url(self, namespace):
-        return self._get_namespaces_url() + "/" + namespace + "/services"
+    def _get_istio_config_details_url(self, namespace, object_type, object_name):
+        return self._get_istio_config_url(namespace) + "/" + object_type + "/" +object_name
 
-    def get_services_details_url(self, namespace, service):
-        return self._get_services_url(namespace) + "/" + service
+    def _get_service_list_url(self, namespace):
+        return self._get_namespace_url() + "/" + namespace + "/services"
+
+    def get_service_details_url(self, namespace, service):
+        return self._get_service_list_url(namespace) + "/" + service
 
     def _get_service_metrics_url(self, namespace, service):
-        return self.get_services_details_url(namespace, service) + "/metrics"
+        return self.get_service_details_url(namespace, service) + "/metrics"
 
     def _get_service_health_url(self,namespace,service):
-        return self.get_services_details_url(namespace, service) + "/health"
+        return self.get_service_details_url(namespace, service) + "/health"
+
+    def _get_service_validations_url(self,namespace,service):
+        return self.get_service_details_url(namespace, service) + "/istio_validations"
 
     def _get_graph_namespace_url(self, namespace):
-        return self._get_namespaces_url() + "/" + namespace + "/graph"
-
+        return self._get_namespace_url() + "/" + namespace + "/graph"
 
     def _get_graph_service_url(self,namespace,service):
-        return self.get_services_details_url(namespace, service) + "/graph"
+        return self.get_service_details_url(namespace, service) + "/graph"
 
