@@ -5,11 +5,12 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="kiali-client",
-    version="0.4.2",
+    version="0.4.4",
     author="Guilherme Baufaker Rego",
     author_email="gbaufake@redhat.com",
     description="Python client to communicate with Kiali server over HTTP(S)",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url="http://github.com/Kiali-QE/kiali-client-python",
     license='Apache License 2.0',
     keywords = "kiali, service-mesh, istio, kurbenetes, openshift",
