@@ -43,4 +43,10 @@ class KialiClient(KialiBaseClient):
     def graph_service(self, namespace, service, params={}):
         return self._get(self._get_graph_service_url(namespace, service), **params)
 
+    # Workload Related
 
+    def workload_list(self, namespace):
+        return self._get(self._get_workload_list_url((namespace)))
+
+    def workload_details(self, namespace, workload):
+        return self._get(self._get_workload_details_url(namespace, workload))
