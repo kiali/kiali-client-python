@@ -191,3 +191,8 @@ class KialiBaseClient(object):
     def _get_graph_service_url(self,namespace,service):
         return self.get_service_details_url(namespace, service) + "/graph"
 
+    def _get_workload_list_url(self, namespace):
+        return self._get_namespace_url() + "/" + namespace + "/workloads"
+
+    def _get_workload_details_url(self, namespace, workload):
+        return self._get_workload_list_url(namespace) + "/" + workload
