@@ -47,7 +47,6 @@ Another parameters possible to use with Client
 
 ```python
 >>> from kiali import KialiClient
->>> from kiali.client import ApiJsonEncoder
 >>> client = KialiClient(host='kiali-url.com', username='admin', password='admin')
 >>> namespaces = client.namespace_list()
 ```
