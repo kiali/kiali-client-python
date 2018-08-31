@@ -49,8 +49,9 @@ class KialiBaseClient(object):
                  path='api',
                  scheme='http',
                  context=None,
-                 username=None,
-                 password=None):
+                 username='admin',
+                 password='admin',
+                 cafile=None):
         """
         A new instance of KialiClient is created with the following defaults:
         host = localhost
@@ -62,6 +63,7 @@ class KialiBaseClient(object):
         self.path = path
         self.context = context
         self.scheme = scheme
+        self.cafile = cafile
         self.username = username
         self.password = password
 
