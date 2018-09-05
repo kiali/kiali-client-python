@@ -198,3 +198,9 @@ class KialiBaseClient(object):
 
     def _get_workload_details_url(self, namespace, workload):
         return self._get_workload_list_url(namespace) + "/" + workload
+
+    def _get_app_list_url(self, namespace):
+        return self._get_namespace_url() + "/" + namespace + "/apps"
+
+    def _get_app_details_url(self, namespace, app):
+        return self._get_app_list_url(namespace) + "/" + app

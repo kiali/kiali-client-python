@@ -50,3 +50,11 @@ class KialiClient(KialiBaseClient):
 
     def workload_details(self, namespace, workload):
         return self._get(self._get_workload_details_url(namespace, workload))
+
+    # App Related
+
+    def app_list(self, namespace):
+        return self._get(self._get_app_list_url(namespace))
+
+    def app_details(self, namespace, app):
+        return self._get(self._get_app_details_url(namespace, app))
