@@ -51,6 +51,15 @@ class KialiClient(KialiBaseClient):
     def workload_details(self, namespace, workload):
         return self._get(self._get_workload_details_url(namespace, workload))
 
+    def workload_metrics(self, namespace, workload):
+        return self._get(self._get_workload_metrics_url(namespace, workload))
+
+    def workload_health(self, namespace, workload):
+        return self._get(self._get_workload_health_url(namespace, workload))
+
+    def workload_istio_validations(self, namespace, workload):
+        return self._get(self._get_workload_istio_validations(namespace, workload))
+
     # App Related
 
     def app_list(self, namespace):
@@ -58,3 +67,23 @@ class KialiClient(KialiBaseClient):
 
     def app_details(self, namespace, app):
         return self._get(self._get_app_details_url(namespace, app))
+
+    def app_metrics(self, namespace, app):
+        return self._get(self._get_app_metrics_url(namespace, app))
+
+    def app_health(self, namespace, app):
+        return self._get(self._get_app_health_url(namespace, app))
+
+    # Istio
+
+    def istio(self, namespace):
+        return self._get(self._get_istio_url(namespace))
+
+    def istio_validations(self, namespace):
+        return self._get(self._get_istio_validations_url(namespace))
+
+    def istio_object_type(self, namespace, object_type, object):
+        return self._get(self._get_istio_object_type_url(namespace, object_type, object))
+
+    def istio_object_istio_validations(self, namespace, object_type, object):
+        return self._get(self._get_istio_object_istio_validations_url(namespace, object_type, object))
