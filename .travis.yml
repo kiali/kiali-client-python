@@ -1,6 +1,14 @@
 language: python
 python:
-    - "3.4"
-    - "2.7"
+- '3.6'
+- '2.7'
 script:
-    - python setup.py install
+- python setup.py install
+deploy:
+  provider: pypi
+  user: gbaufake
+  password:
+    secure: Z5bKe2dvuX8plo6eBX4nx2IGXIN0LZ8vQzHs8e0+PE//V1Du2BNDW6XlgQfg+tc+b6kGu0kXNOnAbJO3z/nowmDNNCA+IkwZ0tEVX/wsHSoGm2FI331WjpcLXODSZoAUormqMVwlDA414f1x7O8EJNiEe+dtLU5RR3UVii3wYdo6MUvyBoWpOl/C8bGv0G7iwmiJx/JkXhSe0Zg/JaTIEF+FGNKwf6bryxQLvSeg8lZsaLMBKCGHUiLWHzDdX5e+M5vOtzeTsTxbr2hPosxCAK7+MPMN/HqEwoDsVu6teVjuJbmxnbH4cM0d3aCjQXvEJUU2Bjh8c23jDutone5bo3rQYv447I1Kac4GXfQF+milRro3KlRqR2c5Nq18PmQSjYVtT5U2zf5VnhmCGWyKtqzMI86aLHh/ZHTLXbT8UtZ0dl9SRwI6VJy5prvAPGyu2twZoAuVglRwTvT9e8YTBZeyh2MMRcbuE9A34oDq2BxU6ngKzO9a0RP0KMhr6h30sGdz49ZEJTuKA6w1ZfSVqDPdXEJUD+iQ2NzjM5POWCbE3EKbwuBJYva0VssNaZPqtBNBx5mgTyUw65ma22pFQvFet3IZW3Q1V0yOJFcnro2uYMF87rd+H0Sldn2ex71W10ex6USsXmeObDCxtYWD7EGK8dS5jhlKhJwzCcLfQ0I=
+  distributions: "sdist bdist_wheel"
+  on:
+    tags: true
