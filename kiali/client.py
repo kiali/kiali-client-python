@@ -172,6 +172,8 @@ class KialiBaseClient(object):
     def _get_istio_config_details_url(self, namespace, object_type, object_name):
         return self._get_istio_config_url(namespace) + "/" + object_type + "/" +object_name
 
+    # Service
+
     def _get_service_list_url(self, namespace):
         return self._get_namespace_url() + "/" + namespace + "/services"
 
@@ -187,11 +189,15 @@ class KialiBaseClient(object):
     def _get_service_validations_url(self,namespace,service):
         return self.get_service_details_url(namespace, service) + "/istio_validations"
 
+    # Graph
+
     def _get_graph_namespace_url(self, namespace):
         return self._get_namespace_url() + "/" + namespace + "/graph"
 
     def _get_graph_service_url(self,namespace,service):
         return self.get_service_details_url(namespace, service) + "/graph"
+
+    # Workload
 
     def _get_workload_list_url(self, namespace):
         return self._get_namespace_url() + "/" + namespace + "/workloads"
@@ -199,8 +205,39 @@ class KialiBaseClient(object):
     def _get_workload_details_url(self, namespace, workload):
         return self._get_workload_list_url(namespace) + "/" + workload
 
+    def _get_workload_health_url(self, namespace, workload):
+        return self._get_workload_list_url(namespace) + "/" + workload + "/health"
+
+    def _get_workload_metrics_url(self, namespace, workload):
+        return self._get_workload_list_url(namespace) + "/" + workload + "/metrics"
+
+    def _get_workload_istio_validations(self, namespace, workload):
+        return self._get_workload_list_url(namespace) + "/" + workload + "/istio_validations"
+
+    # Application
+
     def _get_app_list_url(self, namespace):
         return self._get_namespace_url() + "/" + namespace + "/apps"
 
     def _get_app_details_url(self, namespace, app):
         return self._get_app_list_url(namespace) + "/" + app
+
+    def _get_app_metrics_url(self, namespace, app):
+        return self._get_app_list_url(namespace) + "/" + app + "/metrics"
+
+    def _get_app_health_url(self, namespace, app):
+        return self._get_app_list_url(namespace) + "/" + app + "/health"
+
+    # Istio
+
+    def _get_istio_url(self, namespace):
+        return self._get_namespace_url() + "/" + namespace + "/istio"
+
+    def _get_istio_validations_url(self, namespace):
+        return self._get_namespace_url() + "/" + namespace + "/istio_validations"
+
+    def _get_istio_object_type_url(self, namespace, object_type, object):
+        return self._get_namespace_url() + "/" + namespace + "/istio/" + object_type + "/" + object
+
+    def _get_istio_object_istio_validations_url(self, namespace, object_type, object):
+        return self._get_namespace_url() + "/" + namespace + "/istio/" + object_type + "/" + object + "/istio_validations"
