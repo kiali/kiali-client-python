@@ -233,3 +233,27 @@ Usage Example:
 {'elements': {'nodes': [{'data': {'id': 'n0', 'version': 'unknown', 'text': 'e', 'service': 'e.kiali-test-depth.svc.cluster.local'}}, {'data': {'id': 'n1', 'version': 'unknown', 'text': 'f', 'rate': '1.0000', 'service': 'f.kiali-test-depth.svc.cluster.local'}}], 'edges': [{'data': {'id': 'e0', 'source': 'n0', 'target': 'n1', 'text': '1.00', 'color': 'green', 'style': 'solid', 'rate': '1.0000'}}]}}
 
 ```
+
+## App List
+- This method will return a list of applications for specific namespace
+- Required Parameter (`namespace`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.app_list(namespace='bookinfo')
+{u'applications': [{u'istioSidecar': True, u'name': u'details'},  {u'istioSidecar': True, u'name': u'productpage'},  {u'istioSidecar': True, u'name': u'ratings'},  {u'istioSidecar': True, u'name': u'reviews'}], u'namespace': {u'name': u'bookinfo'}}
+
+```
+
+## App Details
+- This method will return details of a specific application
+- Required Parameters (`namespace`, `app`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.app_details(namespace='bookinfo', app='productpage')
+{u'name': u'productpage', u'namespace': {u'name': u'bookinfo'}, u'workloads': [{u'istioSidecar': True,   u'serviceNames': [u'productpage'],   u'workloadName': u'productpage-v1'}]}
+
+```
