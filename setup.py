@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="kiali-client",
-    version="0.4.8",
+    version="0.4.9",
     author="Guilherme Baufaker Rego",
     author_email="gbaufake@redhat.com",
     description="Python client to communicate with Kiali server over HTTP(S)",
