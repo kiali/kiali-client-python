@@ -257,3 +257,102 @@ Usage Example:
 {u'name': u'productpage', u'namespace': {u'name': u'bookinfo'}, u'workloads': [{u'istioSidecar': True,   u'serviceNames': [u'productpage'],   u'workloadName': u'productpage-v1'}]}
 
 ```
+
+## App Health
+- This method will return a dictionary with app health
+- Required Parameter (`namespace`, `app`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.app_health(namespace='bookinfo', app="details")
+{u'envoy': [], u'requests': {u'requestCount': 0, u'requestErrorCount': 0}, u'workloadStatuses': [{u'available': 1,   u'name': u'details-v1',   u'replicas': 1}]}
+
+```
+
+## App Metrics
+- This method will return dictionary of app metrics
+- Required Parameters (`namespace`, `app`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.app_metrics(namespace='bookinfo', app="productpage")
+{u'dest': {u'histograms': {u'request_duration_in': {u'avg': {u'matrix': []}}, u'request_duration_out': {u'avg': {u'matrix': [{u'metric': {u'reporter': u'destination'}, u'values': [[1539608730, u'NaN'],[1539608745, u'NaN'],[1539610605, u'0']]}]}
+
+```
+
+## Workload List
+- This method will return a list of workloads for a specific namespace
+- Required Parameter (`namespace`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.workload_list(namespace='bookinfo')
+{u'namespace': {u'name': u'bookinfo'}, u'workloads': [{u'appLabel': True, u'createdAt': u'2018-10-10T12:37:29Z', u'istioSidecar': True, u'labels': {u'app': u'details', u'version': u'v1'}, u'name': u'details-v1', u'resourceVersion': u'11417092', u'type': u'Pod', u'versionLabel': True}]}
+
+```
+
+## Workload Details
+- This method will return details of a specific workload
+- Required Parameters (`namespace`, `workload`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.workload_details(namespace='bookinfo', workload="details-v1")
+{u'appLabel': True, u'availableReplicas': 1, u'createdAt': u'2018-10-10T12:37:29Z', u'istioSidecar': True, u'labels': {u'app': u'details', u'version': u'v1'}, u'name': u'details-v1', u'pods': [{u'appLabel': True, u'createdAt': u'2018-10-10T12:37:29Z', u'createdBy': None, u'istioContainers': [{u'image': u'gcr.io/istio-release/proxyv2:1.0.2', u'name': u'istio-proxy'}], u'istioInitContainers': [{u'image': u'gcr.io/istio-release/proxy_init:1.0.2', u'name': u'istio-init'}], u'labels': {u'app': u'details', u'version': u'v1'}, u'name': u'details-v1', u'status': u'Running',
+   u'versionLabel': True}], u'replicas': 1, u'resourceVersion': u'11417092', u'services': [], u'type': u'Pod', u'unavailableReplicas': 0,
+ u'versionLabel': True}
+
+```
+
+## Workload Health
+- This method will return a dictionary with workload health
+- Required Parameter (`namespace`, `workload`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.workload_health(namespace='bookinfo', workload="details-v1")
+{u'requests': {u'errorRatio': 0}, u'workloadStatus': {u'available': 1, u'name': u'details-v1', u'replicas': 1}}
+
+```
+
+## Workload Metrics
+- This method will return dictionary of workload metrics
+- Required Parameters (`namespace`, `workload`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.workload_metrics(namespace='bookinfo', workload="details-v1")
+{u'dest': {u'histograms': {u'request_duration_in': {u'avg': {u'matrix': [{u'metric': {u'reporter': u'destination'},
+       u'values': [[1539684765, u'0.007'], [1539686565, u'0.007']]}]}}
+
+```
+
+## Istio Validations
+- This method will return valid istio configurations for the specified namespace
+- Required Parameters (`namespace`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.istio_validations(namespace='bookinfo')
+{u'bookinfo': {u'virtualservice': {u'bookinfo-vs': {u'checks': [], u'name': u'bookinfo-vs', u'objectType': u'virtualservice', u'valid': True}}}}
+
+```
+
+## Service Validations
+- This method will return valid configurations for the specified service
+- Required Parameters (`namespace`, `service`)
+
+```python
+>>> from kiali import KialiClient
+>>> client = KialiClient(host='kiali-url.com')
+>>> client.service_validations(namespace='bookinfo', service="productpage")
+{u'virtualservice': {u'bookinfo-vs': {u'checks': [], u'name': u'bookinfo-vs', u'objectType': u'virtualservice', u'valid': True}}}
+
+```
