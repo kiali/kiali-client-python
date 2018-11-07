@@ -37,11 +37,8 @@ class KialiClient(KialiBaseClient):
 
     # Graph Related
 
-    def graph_namespace(self, namespace, params={}):
-        return self._get(self._get_graph_namespace_url(namespace), **params)
-
-    def graph_service(self, namespace, service, params={}):
-        return self._get(self._get_graph_service_url(namespace, service), **params)
+    def graph_namespaces(self, params={}):
+        return self._get(self._get_graph_namespace_url(), **params)
 
     # Workload Related
 
