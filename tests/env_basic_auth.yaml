@@ -1,0 +1,7 @@
+kiali_hostname: kiali-hostname.com
+kiali_scheme: https
+kiali_port: 443
+kiali_username: admin
+kiali_password: admin
+kiali_auth_method: https
+kiali_verify_ssl_certificate: false
