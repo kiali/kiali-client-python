@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from abc import ABC
-
 import urllib3
 import requests
 import requests.utils
