@@ -1,10 +1,12 @@
-import pytest
+import os
 import yaml
+from pkg_resources import resource_string
+
 from kiali.client import KialiClient
 
 def env_config(env_file):
-    with open(env_file) as yamlfile:
-        config = yaml.load(yamlfile)
+    yamlfile = resource_string(__name__, env_file)
+    config = yaml.load(yamlfile)
     return config
 
 def get_kiali_https_auth_client():

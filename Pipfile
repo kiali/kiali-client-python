@@ -8,6 +8,7 @@ requests = "*"
 pytest = "*"
 pyyaml = "*"
 swagger-parser = "*"
+pytest-cov = "*"
 
 [dev-packages]
 
