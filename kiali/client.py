@@ -5,7 +5,7 @@ class KialiClient():
     def __init__(self, hostname='localhost', scheme='https', port='443', auth_type='https', username='admin', password='admin', verify=False, swagger_address='https://raw.githubusercontent.com/kiali/kiali/master/swagger.json'):
         self.swagger_parser = KialiSwaggerParser(swagger_address)
 
-        # TODO create other types of Auth
+        # TODO Add Oauth Connector
         if auth_type == 'https':
             self.api_connector = KialiHTTPSApiConnector(hostname=hostname, scheme=scheme, port=port, verify=verify, username=username, password=password)
 
