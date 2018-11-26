@@ -103,9 +103,8 @@ def test_object_validations():
     evaluate_response(method_name='objectValidations', path={'namespace': 'istio-system', 'object_type': 'rules', 'object': 'promtcp'})
 
 
-# TODO Fix this Test with correct params
 def test_istio_Config_adapter_template_details():
-    evaluate_response(method_name='istioConfigAdapterTemplateDetails', path={'namespace': 'istio-system', 'object_type': 'rules', 'object_subtype': 'template', 'object': 'promtcp'} )
+    evaluate_response(method_name='istioConfigAdapterTemplateDetails', path={'namespace': 'istio-system', 'object_type': 'templates', 'object_subtype': 'metrics', 'object': 'tcpbytereceived'} )
 
 def test_service_list():
     evaluate_response(method_name='serviceList', path={'namespace': 'istio-system'})
