@@ -8,7 +8,7 @@ class KialiClient():
 
         # TODO Add Oauth Connector
         if auth_type == 'https-user-password':
-            self.api_connector = KialiHTTPSApiConnector(hostname=hostname, scheme=scheme, port=port, verify=verify, username=username, password=password,max_retries=max_retries)
+            self.api_connector = KialiHTTPSApiConnector(hostname=hostname, scheme=scheme, port=port, verify=verify, username=username, password=password, max_retries=max_retries)
 
 
         if auth_type == 'no-auth':
