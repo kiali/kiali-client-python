@@ -178,6 +178,25 @@ def test_graph_workload():
     GRAPH_WORKLOAD_PATH = {'namespace': 'bookinfo', 'workload': 'mongodb-v1'}
     evaluate_response(method_name='graphWorkload', path=GRAPH_WORKLOAD_PATH)
 
+def test_graph_namespaces():
+    VERSIONED_APP_PARAMS = {'namespace': 'bookinfo', 'graphType': 'versionedApp', 'duration': '60s'}
+    WORKLOAD_PARAMS = {'namespace': 'bookinfo', 'graphType': 'workload', 'duration': '60s'}
+    APP_PARAMS = {'namespace': 'bookinfo','graphType': 'app', 'duration': '60s'}
+
+    evaluate_response(method_name='graphNamespaces', params=WORKLOAD_PARAMS)
+    evaluate_response(method_name='graphNamespaces', params=VERSIONED_APP_PARAMS)
+    evaluate_response(method_name='graphNamespaces', params=APP_PARAMS)
+
+
+def test_graph_service():
+    GRAPH_SERVICE_PATH = {'namespace': 'bookinfo', 'service': 'mongodb'}
+    evaluate_response(method_name='graphService', path=GRAPH_SERVICE_PATH)
+
+
+def test_graph_workload():
+    GRAPH_WORKLOAD_PATH = {'namespace': 'bookinfo', 'workload': 'mongodb-v1'}
+    evaluate_response(method_name='graphWorkload', path=GRAPH_WORKLOAD_PATH)
+
 
 # FIXME this test will fail because of https://issues.jboss.org/projects/KIALI/issues/KIALI-1980
 def test_graph_app():
@@ -190,6 +209,7 @@ def test_graph_app():
 
     # Default Request
     evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH, status_code_expected=200)
+
     # App
     evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH, status_code_expected=200,
                       params=GRAPH_APP_PARAMS_APP)
@@ -208,26 +228,6 @@ def test_graph_app():
 
     evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH,
                       params=GRAPH_APP_PARAMS_NOT_VALID, status_code_expected=500)
-
-
-def test_graph_namespaces():
-    VERSIONED_APP_PARAMS = {'namespace': 'bookinfo', 'graphType': 'versionedApp', 'duration': '60s'}
-    WORKLOAD_PARAMS = {'namespace': 'bookinfo', 'graphType': 'workload', 'duration': '60s'}
-    APP_PARAMS = {'namespace': 'bookinfo','graphType': 'app', 'duration': '60s'}
-
-    evaluate_response(method_name='graphNamespaces', params=VERSIONED_APP_PARAMS)
-    evaluate_response(method_name='graphNamespaces', params=WORKLOAD_PARAMS)
-    evaluate_response(method_name='graphNamespaces', params=APP_PARAMS)
-
-
-def test_graph_service():
-    GRAPH_SERVICE_PATH = {'namespace': 'bookinfo', 'service': 'mongodb'}
-    evaluate_response(method_name='graphService', path=GRAPH_SERVICE_PATH)
-
-
-def test_graph_workload():
-    GRAPH_WORKLOAD_PATH = {'namespace': 'bookinfo', 'workload': 'mongodb-v1'}
-    evaluate_response(method_name='graphWorkload', path=GRAPH_WORKLOAD_PATH)
 
 
 # FIXME this test will fail because of https://issues.jboss.org/projects/KIALI/issues/KIALI-1980

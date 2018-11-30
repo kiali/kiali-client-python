@@ -32,7 +32,7 @@ class KialiSwaggerParser:
         # FIXME This code is workaround for https://issues.jboss.org/projects/KIALI/issues/KIALI-1994
         if operation == 'Root':
             warnings.warn(
-                'The Method {0} on the swagger file is directing to a non-existent path: {1}. Check https://issues.jboss.org/projects/KIALI/issues/KIALI-1994  '.format(operation,
+                'The Method {0} on the swagger file is directing to a non-existent path: {1}. Check https://issues.jboss.org/projects/KIALI/issues/KIALI-1994'.format(operation,
                                                                                                       base_url),
                 SyntaxWarning)
             base_url = re.sub('/api/', '/api', base_url)
