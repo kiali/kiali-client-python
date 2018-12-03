@@ -13,7 +13,7 @@ def get_kiali_https_auth_client():
     return KialiClient(hostname=https_auth.get('kiali_hostname'), port=https_auth.get('kiali_port'), auth_type=https_auth.get(
         'kiali_auth_method'),
                        username=https_auth.get('kiali_username'), password=https_auth.get('kiali_password'), verify=https_auth.get(
-            'kiali_verify_ssl_certificate'))
+            'kiali_verify_ssl_certificate'), swagger_address=https_auth.get('kiali_swagger_address'))
 
 
 def remove_timestamp_from_json(json_element):
