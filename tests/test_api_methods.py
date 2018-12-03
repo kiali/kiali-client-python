@@ -47,7 +47,6 @@ def test_swagger_coverage():
     else:
         pass
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1994, workaround on Swagger File
 def test_root():
     evaluate_response(method_name='Root')
 
@@ -75,7 +74,6 @@ def test_get_token():
 def test_namespace_list():
     evaluate_response(method_name='namespaceList')
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1969, workaround on Swagger File
 def test_namespace_metrics():
     evaluate_response(method_name='namespaceMetrics', path={'namespace': 'istio-system'})
 
@@ -101,7 +99,7 @@ def test_object_validations():
     evaluate_response(method_name='objectValidations', path={'namespace': 'istio-system', 'object_type': 'rules', 'object': 'promtcp'})
 
 
-def test_istio_Config_adapter_template_details():
+def test_istio_config_adapter_template_details():
     evaluate_response(method_name='istioConfigAdapterTemplateDetails', path={'namespace': 'istio-system', 'object_type': 'templates', 'object_subtype': 'metrics', 'object': 'tcpbytereceived'} )
 
 def test_service_list():

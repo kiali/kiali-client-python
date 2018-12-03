@@ -7,8 +7,12 @@ from swagger_parser import SwaggerParser
 
 class KialiSwaggerParser:
 
-    def __init__(self, swagger_address):
+    def __init__(self, swagger_address, custom_base_path=None):
         json_object = requests.get(swagger_address).json()
+
+        if custom_base_path is not None:
+            json_object['basePath'] = custom_base_path + json_object['basePath']
+            
         self.swagger = SwaggerParser(swagger_dict=json_object)
 
 
