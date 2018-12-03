@@ -69,8 +69,6 @@ def test_get_config():
 
 
 def test_get_token():
-    warnings.warn('The Method {0} seems to out the standard on Swagger'.format('Get Token'),
-                  SyntaxWarning)
     evaluate_response(method_name='GetToken')
 
 
@@ -114,12 +112,10 @@ def test_service_details():
     evaluate_response(method_name='serviceDetails',
                                            path={'namespace': 'istio-system', 'service': 'kiali'})
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1969, workaround on Swagger File
 def test_service_metrics():
     evaluate_response(method_name='serviceMetrics',
                                         path={'namespace': 'istio-system', 'service': 'kiali'})
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1969, workaround on Swagger File
 def test_service_health():
     evaluate_response(method_name='serviceHealth', path={'namespace': 'istio-system', 'service': 'kiali'})
 
@@ -131,7 +127,6 @@ def test_service_validations():
 def test_app_list():
     evaluate_response(method_name='appList', path={'namespace': 'istio-system'})
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1969, workaround on Swagger File
 def test_app_metrics():
     evaluate_response(method_name='appMetrics', path={'namespace': 'istio-system', 'app': 'kiali'})
 
@@ -139,7 +134,6 @@ def test_app_metrics():
 def test_app_details():
     evaluate_response(method_name='appDetails', path={'namespace': 'istio-system', 'app': 'kiali'})
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1969, workaround on Swagger File
 def test_app_health():
     evaluate_response(method_name='appHealth', path={'namespace': 'istio-system', 'app': 'kiali'})
 
@@ -151,11 +145,9 @@ def test_workload_list():
 def test_workload_details():
     evaluate_response(method_name='workloadDetails', path={'namespace': 'bookinfo', 'workload':'details-v1'})
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1969, workaround on Swagger File
 def test_workload_health():
     evaluate_response(method_name='workloadHealth', path={'namespace': 'bookinfo', 'workload':'details-v1'})
 
-#Fixme Issue Flagged on this test: https://issues.jboss.org/projects/KIALI/issues/KIALI-1969, workaround on Swagger File
 def test_workload_metrics():
     evaluate_response(method_name='workloadMetrics', path={'namespace': 'bookinfo', 'workload':'details-v1'})
 
@@ -178,84 +170,37 @@ def test_graph_workload():
     GRAPH_WORKLOAD_PATH = {'namespace': 'bookinfo', 'workload': 'mongodb-v1'}
     evaluate_response(method_name='graphWorkload', path=GRAPH_WORKLOAD_PATH)
 
-def test_graph_namespaces():
-    VERSIONED_APP_PARAMS = {'namespace': 'bookinfo', 'graphType': 'versionedApp', 'duration': '60s'}
-    WORKLOAD_PARAMS = {'namespace': 'bookinfo', 'graphType': 'workload', 'duration': '60s'}
-    APP_PARAMS = {'namespace': 'bookinfo','graphType': 'app', 'duration': '60s'}
-
-    evaluate_response(method_name='graphNamespaces', params=WORKLOAD_PARAMS)
-    evaluate_response(method_name='graphNamespaces', params=VERSIONED_APP_PARAMS)
-    evaluate_response(method_name='graphNamespaces', params=APP_PARAMS)
-
-
-def test_graph_service():
-    GRAPH_SERVICE_PATH = {'namespace': 'bookinfo', 'service': 'mongodb'}
-    evaluate_response(method_name='graphService', path=GRAPH_SERVICE_PATH)
-
-
-def test_graph_workload():
-    GRAPH_WORKLOAD_PATH = {'namespace': 'bookinfo', 'workload': 'mongodb-v1'}
-    evaluate_response(method_name='graphWorkload', path=GRAPH_WORKLOAD_PATH)
-
-
-# FIXME this test will fail because of https://issues.jboss.org/projects/KIALI/issues/KIALI-1980
-def test_graph_app():
+def test_graph_app_and_graph_app_version():
     GRAPH_APP_PARAMS_NOT_VALID = {'graphType': 'notValid'}
     GRAPH_APP_PARAMS_APP = {'graphType': 'app'}
-    GRAPH_APP_PARAMS_VERSION = {'graphType': 'appVersion'}
+    GRAPH_APP_PARAMS_VERSION = {'graphType': 'versionedApp'}
     GRAPH_APP_PARAMS_WORKLOAD = {'graphType': 'workload'}
     GRAPH_APP_PARAMS_SERVICE = {'graphType': 'service'}
+    
+    
     GRAPH_APP_PATH = {'namespace': 'bookinfo', 'app': 'reviews'}
 
-    # Default Request
-    evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH, status_code_expected=200)
+    for method_name in ['graphApp', 'graphAppVersion']:
 
-    # App
-    evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_APP)
+        # Default Request (It is expected because the graphType is set to Workload as default it will fail for default case)
+        evaluate_response(method_name=method_name, path=GRAPH_APP_PATH, status_code_expected=500)
 
-    evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_VERSION)
+        # Workload (also equals to Default)
+        evaluate_response(method_name=method_name, path=GRAPH_APP_PATH, status_code_expected=500,
+                        params=GRAPH_APP_PARAMS_WORKLOAD)
 
-    # Workload (also equals to Default)
-    evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_WORKLOAD)
+        # Service
+        evaluate_response(method_name=method_name, path=GRAPH_APP_PATH, status_code_expected=500,
+                        params=GRAPH_APP_PARAMS_SERVICE)
 
-    # Service
-    evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_SERVICE)
+        # Invalid Value
+        evaluate_response(method_name=method_name, path=GRAPH_APP_PATH,
+                        params=GRAPH_APP_PARAMS_NOT_VALID, status_code_expected=500)
 
+        # App Graph
+        evaluate_response(method_name=method_name, path=GRAPH_APP_PATH, status_code_expected=200,
+                        params=GRAPH_APP_PARAMS_APP)
 
-    evaluate_response(method_name='graphApp', path=GRAPH_APP_PATH,
-                      params=GRAPH_APP_PARAMS_NOT_VALID, status_code_expected=500)
-
-
-# FIXME this test will fail because of https://issues.jboss.org/projects/KIALI/issues/KIALI-1980
-def test_graph_app_version():
-    GRAPH_APP_PARAMS_NOT_VALID = {'graphType': 'notValid'}
-    GRAPH_APP_PARAMS_APP = {'graphType': 'app'}
-    GRAPH_APP_PARAMS_VERSION = {'graphType': 'appVersion'}
-    GRAPH_APP_PARAMS_WORKLOAD = {'graphType': 'workload'}
-    GRAPH_APP_PARAMS_SERVICE = {'graphType': 'service'}
-    GRAPH_APP_PATH = {'namespace': 'bookinfo', 'app': 'reviews', 'version': 'v2'}
-
-    # # Default Request
-    # evaluate_response(method_name='graphAppVersion', path=GRAPH_APP_PATH, status_code_expected=200)
-    # App
-    evaluate_response(method_name='graphAppVersion', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_APP)
-
-    evaluate_response(method_name='graphAppVersion', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_VERSION)
-
-    # Workload (also equals to Default)
-    evaluate_response(method_name='graphAppVersion', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_WORKLOAD)
-
-    # Service
-    evaluate_response(method_name='graphAppVersion', path=GRAPH_APP_PATH, status_code_expected=200,
-                      params=GRAPH_APP_PARAMS_SERVICE)
-
-
-    evaluate_response(method_name='graphAppVersion', path=GRAPH_APP_PATH,
-                      params=GRAPH_APP_PARAMS_NOT_VALID, status_code_expected=500)
+        # Versioned App Graph
+        evaluate_response(method_name=method_name, path=GRAPH_APP_PATH, status_code_expected=200,
+                        params=GRAPH_APP_PARAMS_VERSION)

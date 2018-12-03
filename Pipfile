@@ -11,6 +11,7 @@ swagger-parser = "*"
 pytest-cov = "*"
 
 [dev-packages]
+pylint = "*"
 
 [requires]
 python_version = "3.7"
