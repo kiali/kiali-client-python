@@ -5,7 +5,6 @@ import urllib3
 import requests
 import requests.utils
 from requests.auth import HTTPBasicAuth
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class KialiApiConnector(ABC):
