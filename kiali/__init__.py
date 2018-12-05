@@ -11,5 +11,5 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 """
-from kiali.api import KialiClient
+from kiali.client import KialiClient
 __all__ = ['KialiClient']
