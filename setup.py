@@ -19,7 +19,6 @@ setuptools.setup(
           'Development Status :: 5 - Production/Stable',
           'Intended Audience :: Developers',
           'Programming Language :: Python',
-          'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 3',
           'Topic :: System :: Monitoring',
     ),

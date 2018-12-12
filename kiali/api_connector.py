@@ -58,7 +58,7 @@ class KialiHTTPSApiConnector(KialiApiConnector):
 
 class KialiNoAuthApiConnector(KialiApiConnector):
     """
-        Creates new client for Kiali based on HTTPS
+        Creates new client for Kiali based on HTTP
         """
 
     def __init__(self, hostname, port, scheme, verify):
