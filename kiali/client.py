@@ -14,11 +14,11 @@ class KialiClient():
         if auth_type == 'no-auth':
             self.api_connector = KialiNoAuthApiConnector(hostname=hostname, scheme=scheme, port=port, verify=verify)
 
-    def request(self, method_name=None, path=None, params=None, plain_url=None):
+    def request(self, method_name=None, path=None, params=None, plain_url=None, http_method='GET', data=None):
 
         if plain_url is None:
             url = self.swagger_parser.construct_url(method_name, path, params)
-            return self.api_connector.get(url)
+            return self.api_connector.dispatcher(url=url, http_method=http_method, data=data)
         else:
-            return self.api_connector.get(plain_url, params)
+            return self.api_connector.dispatcher(url=plain_url, params=params, http_method=http_method, data=data)
 

@@ -20,13 +20,29 @@ class KialiApiConnector(ABC):
     def retrieve_url(self, path):
         return requests.utils.urlunparse((self.scheme, (self.hostname + ":" +str(self.port)), path, None, None, None))
 
-    def get(self, url, params=None):
-        url = self.retrieve_url(url)
+    def create_session(self):
         session = requests.Session()
         session.auth = self.auth
         requests.adapters.HTTPAdapter(max_retries=self.max_retries)
         session.headers.update({'Host': self.hostname, 'Content-Type': 'application/json'})
-        return session.get(url, verify=self.verify, params=params)
+        return session
+
+    # Factory Method of HTTP Request
+    def dispatcher(self, url, params=None, http_method='GET', data=None):
+        if http_method is 'GET':
+            self.get(url=url, params=params)
+
+        if http_method is 'PATCH':
+            self.patch(url=url, params=params, data=data)
+
+
+    def get(self, url, params=None):
+        session = self.create_session()
+        return session.get(url=self.retrieve_url(url), verify=self.verify, params=params)
+
+    def patch(self, url, data, params=None):
+        session = self.create_session()
+        return session.patch(url=self.retrieve_url(url), data=data, params=params)
 
 
 class KialiHTTPSApiConnector(KialiApiConnector):
