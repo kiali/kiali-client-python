@@ -30,10 +30,10 @@ class KialiApiConnector(ABC):
     # Factory Method of HTTP Request
     def dispatcher(self, url, params=None, http_method='GET', data=None):
         if http_method is 'GET':
-            self.get(url=url, params=params)
+            return self.get(url=url, params=params)
 
         if http_method is 'PATCH':
-            self.patch(url=url, params=params, data=data)
+            return self.patch(url=url, params=params, data=data)
 
 
     def get(self, url, params=None):
