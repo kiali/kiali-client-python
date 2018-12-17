@@ -27,27 +27,6 @@ Another parameters possible to use with Client
 
 ## Creating a Request on Kiali CLient
 
-## Testing
-
-```shell
-$ git clone https://github.com/kiali/kiali-python-client.git
-
-# Install Pip env
-pip3 install pipenv
-
-# Install Pipenv modules required
-$ pipenv install
-
-# Enable Virtualenv
-$ pipenv shell
-
-# Update config/env.yaml with kiali hostname and credentials
-
-$ pytest -s tests/
-```
-
-# Methods Available
-
 ## Root
 
 - This method will return the status of kiali.
@@ -348,4 +327,30 @@ Usage Example:
 ```python
 >>> client.request(method_name='graphWorkload', path={'namespace': 'bookinfo', 'workload': 'mongodb-v1'}).json()
 {'timestamp': 1544783312, 'graphType': 'workload', 'elements': {'nodes': [{'data': {'id': 'd377d11829f7fbb6a62c714f86d536d3', 'nodeType': 'workload',  'namespace': 'bookinfo', 'workload': 'mongodb-v1', 'app': 'mongodb', 'version': 'v1', 'destServices': {'mongodb': True}}}
+```
+
+## Responce Metadata
+
+- json
+- text
+- status_code
+- url
+- elapsed (Request response time)
+
+Usage Examples:
+```python
+>>> client.request(method_name='getConfig').json()
+{'istioNamespace': 'istio-system', 'istioLabels': {'AppLabelName': 'app', 'VersionLabelName': 'version'}}
+
+>>> client.request(method_name='namespaceList').text
+'[{"name":"bookinfo"},{"name":"bookinfo2"},{"name":"default"},{"name":"istio-examples"},{"name":"istio-system"},{"name":"management-infra"}]'
+
+>>> client.request(method_name='namespaceMetrics', path={'namespace': 'istio-system'}).status_code
+200
+
+>>> client.request(method_name='jaegerInfo').url
+'https://kiali-istio-system.openshift.jonqe.lab.eng.bos.redhat.com:443/api/jaeger'
+
+>>> client.request(method_name='serviceList', path={'namespace': 'istio-system'}).elapsed
+datetime.timedelta(seconds=1, microseconds=859915)
 ```
