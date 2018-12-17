@@ -27,6 +27,8 @@ Another parameters possible to use with Client
 
 ## Creating a Request on Kiali CLient
 
+## Methods Available
+
 ## Root
 
 - This method will return the status of kiali.
