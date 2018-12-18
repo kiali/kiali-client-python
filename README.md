@@ -36,7 +36,7 @@ Another parameters possible to use with Client
 Usage Example:
 ```python
 >>> client.request(method_name='Root').json()
-{'status': {'Kiali console version': '0.12.0-SNAPSHOT.2937-local-261fb4806afc5c853b097e3cd24e750c691ea6da', 'Kiali core commit hash':'d1efd8cf6b6a2c56301aa2bb14519b3904e258b0', 'Kiali core version': 'v0.12.0-SNAPSHOT', 'Kiali state': 'running'}, 'externalServices':[{'name':'Prometheus', 'version': '2.3.1'}, {'name': 'Kubernetes', 'version': 'v1.11.0+d4cacc0'}, {'name': 'Jaeger',   'url': 'https://jaeger-query-istio-system.openshift.jonqe.lab.eng.bos.redhat.com'}, {'name': 'Grafana', 'url': 'http://grafana-istio-system.openshift.jonqe.lab.eng.bos.redhat.com'}], 'warningMessages': []}
+{'status': {'Kiali console version': '0.12.0-SNAPSHOT.2937-local-261fb4806afc5c853b097e3cd24e750c691ea6da', 'Kiali core commit hash':'d1efd8cf6b6a2c56301aa2bb14519b3904e258b0', 'Kiali core version': 'v0.12.0-SNAPSHOT', 'Kiali state': 'running'}, 'externalServices':[{'name':'Prometheus', 'version': '2.3.1'}, {'name': 'Kubernetes', 'version': 'v1.11.0+d4cacc0'}, {'name': 'Jaeger',   'url': 'https://jaeger-query-istio-system.host.com'}, {'name': 'Grafana', 'url': 'http://grafana-istio-system.host.com'}], 'warningMessages': []}
 ```
 
 ## jaegerInfo
@@ -46,7 +46,7 @@ Usage Example:
 Usage Example:
 ```python
 >>> client.request(method_name='jaegerInfo').json()
-{'url': 'https://jaeger-query-istio-system.openshift.jonqe.lab.eng.bos.redhat.com'}
+{'url': 'https://jaeger-query-istio-system.host.com'}
 ```
 
 ## grafanaInfo
@@ -55,7 +55,7 @@ Usage Example:
 
 ```python
 >>> client.request(method_name='grafanaInfo').json()
-{'url': 'http://grafana-istio-system.openshift.jonqe.lab.eng.bos.redhat.com', 'serviceDashboardPath': '/d/LJ_uJAvmk/istio-service-dashboard', 'workloadDashboardPath': '/d/UbsSZTDik/istio-workload-dashboard', 'varNamespace': 'var-namespace', 'varService': 'var-service', 'varWorkload': 'var-workload'}
+{'url': 'http://grafana-istio-system.host.com', 'serviceDashboardPath': '/d/LJ_uJAvmk/istio-service-dashboard', 'workloadDashboardPath': '/d/UbsSZTDik/istio-workload-dashboard', 'varNamespace': 'var-namespace', 'varService': 'var-service', 'varWorkload': 'var-workload'}
 ```
 
 ## getStatus
@@ -65,7 +65,7 @@ Usage Example:
 Usage Example:
 ```python
 >>> client.request(method_name='getStatus').json()
-{'status': {'Kiali console version': '0.12.0-SNAPSHOT.2937-local-261fb4806afc5c853b097e3cd24e750c691ea6da', 'Kiali core commit hash':'d1efd8cf6b6a2c56301aa2bb14519b3904e258b0', 'Kiali core version': 'v0.12.0-SNAPSHOT', 'Kiali state': 'running'}, 'externalServices': [{'name': 'Prometheus', 'version': '2.3.1'}, {'name': 'Kubernetes', 'version': 'v1.11.0+d4cacc0'}, {'name': 'Jaeger', 'url': 'https://jaeger-query-istio-system.openshift.jonqe.lab.eng.bos.redhat.com'}, {'name': 'Grafana', 'url': 'http://grafana-istio-system.openshift.jonqe.lab.eng.bos.redhat.com'}], 'warningMessages': []}
+{'status': {'Kiali console version': '0.12.0-SNAPSHOT.2937-local-261fb4806afc5c853b097e3cd24e750c691ea6da', 'Kiali core commit hash':'d1efd8cf6b6a2c56301aa2bb14519b3904e258b0', 'Kiali core version': 'v0.12.0-SNAPSHOT', 'Kiali state': 'running'}, 'externalServices': [{'name': 'Prometheus', 'version': '2.3.1'}, {'name': 'Kubernetes', 'version': 'v1.11.0+d4cacc0'}, {'name': 'Jaeger', 'url': 'https://jaeger-query-istio-system.host.com'}, {'name': 'Grafana', 'url': 'http://grafana-istio-system.host.com'}], 'warningMessages': []}
 ```
 
 ## getConfig
@@ -351,7 +351,7 @@ Usage Examples:
 200
 
 >>> client.request(method_name='jaegerInfo').url
-'https://kiali-istio-system.openshift.jonqe.lab.eng.bos.redhat.com:443/api/jaeger'
+'https://kiali-istio-system.host.com:443/api/jaeger'
 
 >>> client.request(method_name='serviceList', path={'namespace': 'istio-system'}).elapsed
 datetime.timedelta(seconds=1, microseconds=859915)
