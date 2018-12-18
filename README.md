@@ -24,9 +24,6 @@ Another parameters possible to use with Client
 * verify   (default: `False`) - used for verify SSL certificates
 * swagger_address (default: https://raw.githubusercontent.com/kiali/kiali/master/swagger.json') - address to swagger file
 
-
-## Creating a Request on Kiali CLient
-
 ## Response Metadata
 
 - json
@@ -52,6 +49,7 @@ Usage Examples:
 >>> client.request(method_name='serviceList', path={'namespace': 'istio-system'}).elapsed
 datetime.timedelta(seconds=1, microseconds=859915)
 ```
+## Creating a Request on Kiali Client
 
 ## Methods Available
 
