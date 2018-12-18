@@ -27,6 +27,32 @@ Another parameters possible to use with Client
 
 ## Creating a Request on Kiali CLient
 
+## Response Metadata
+
+- json
+- text
+- status_code
+- url
+- elapsed (Request response time)
+
+Usage Examples:
+```python
+>>> client.request(method_name='getConfig').json()
+{'istioNamespace': 'istio-system', 'istioLabels': {'AppLabelName': 'app', 'VersionLabelName': 'version'}}
+
+>>> client.request(method_name='namespaceList').text
+'[{"name":"bookinfo"},{"name":"bookinfo2"},{"name":"default"},{"name":"istio-examples"},{"name":"istio-system"},{"name":"management-infra"}]'
+
+>>> client.request(method_name='namespaceMetrics', path={'namespace': 'istio-system'}).status_code
+200
+
+>>> client.request(method_name='jaegerInfo').url
+'https://kiali-istio-system.host.com:443/api/jaeger'
+
+>>> client.request(method_name='serviceList', path={'namespace': 'istio-system'}).elapsed
+datetime.timedelta(seconds=1, microseconds=859915)
+```
+
 ## Methods Available
 
 ## Root
@@ -329,30 +355,4 @@ Usage Example:
 ```python
 >>> client.request(method_name='graphWorkload', path={'namespace': 'bookinfo', 'workload': 'mongodb-v1'}).json()
 {'timestamp': 1544783312, 'graphType': 'workload', 'elements': {'nodes': [{'data': {'id': 'd377d11829f7fbb6a62c714f86d536d3', 'nodeType': 'workload',  'namespace': 'bookinfo', 'workload': 'mongodb-v1', 'app': 'mongodb', 'version': 'v1', 'destServices': {'mongodb': True}}}
-```
-
-## Responce Metadata
-
-- json
-- text
-- status_code
-- url
-- elapsed (Request response time)
-
-Usage Examples:
-```python
->>> client.request(method_name='getConfig').json()
-{'istioNamespace': 'istio-system', 'istioLabels': {'AppLabelName': 'app', 'VersionLabelName': 'version'}}
-
->>> client.request(method_name='namespaceList').text
-'[{"name":"bookinfo"},{"name":"bookinfo2"},{"name":"default"},{"name":"istio-examples"},{"name":"istio-system"},{"name":"management-infra"}]'
-
->>> client.request(method_name='namespaceMetrics', path={'namespace': 'istio-system'}).status_code
-200
-
->>> client.request(method_name='jaegerInfo').url
-'https://kiali-istio-system.host.com:443/api/jaeger'
-
->>> client.request(method_name='serviceList', path={'namespace': 'istio-system'}).elapsed
-datetime.timedelta(seconds=1, microseconds=859915)
 ```
