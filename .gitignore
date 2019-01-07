@@ -1,1 +1,4 @@
 Pipfile.lock
+build/
+dist/
+kiali_client.egg-info/
