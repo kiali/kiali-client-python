@@ -1,0 +1,118 @@
+CHANGES
+=======
+
+* SWSQE-537 - Adjustments
+* SWSQE-537 - Adjusted sections
+* SWSQE-537 - Some refactoring to readme
+* SWSQE-537 - Updated Readme
+* SWSQE-537 - Added response metadata section to Readme and removed Testing section
+
+0.6.1
+-----
+
+* KIALI-2164 Include Support for DELETE method
+* SWSQE-537 - Updated README
+
+0.6.0
+-----
+
+* KIALI-2135 Adding a early return on dispatch method
+* Minor Fixings on the comments
+* KIALI-2135 Including Support to Patch Methods
+* Moving tests to Kiali E2E on https://github.com/kiali/kiali/pull/709
+
+0.5.0
+-----
+
+* Kiali Client 0.5.0
+* KIALI-1766 Custom Base Context - Adding test to custom base context - https://github.com/kiali/kiali/pull/698
+* Refactoring to include corrections from https://github.com/kiali/kiali/pull/693 and https://github.com/kiali/kiali/pull/698
+* KIALI-1766 Adding a Test to Verify Double API on Swagger File
+* KIALI-1977 Adding Max Retries
+* KIALI-1766 - Including Retry Code
+* Adding Local gitignore
+* KIALI-1766 Test for istioConfigAdapterTemplateDetails
+* KIALI-1766 Adding more tests and minor refactorings
+* KIALI-1766 Refactoring Client to make it simpler
+* KIALI-1766 Adding Graph Tests
+* [KIALI-1766] Swagger Work and some Refactorings
+
+0.4.10
+------
+
+* Help text change
+* kiali-1869 - Graph API refacting
+* Create Code of Conduct
+* KIALI-1762 - Update README
+
+0.4.9
+-----
+
+* Releasing Kiali Client 0.4.9
+* KIALI-1593 - Update README
+
+0.4.8
+-----
+
+* Changing and Encrypting Password also removing Python 2.7
+* Refactoring travis.yml to deploy on Pypi
+* KIALI-1531 - Support new test cases
+
+0.4.7
+-----
+
+* KIALI-1487 - Add Applications Support
+
+0.4.6
+-----
+
+* Release Python Client 0.4.6
+* - Including username and password as standard - Including Cafile
+* Removal ApiJSON of the documentation
+* Releasing Python Client 0.4.5
+
+0.4.5
+-----
+
+* Added new REST API endpoints for Workloads list and details
+
+0.4.4
+-----
+
+* Updates on documentation in order to beautify pypi page
+* Updating Readme and releasing 0.4.2
+* Including Travis File
+* Release 0.4.1
+* Including new Methods on Kiali API
+* Including new Methods on README and removing old ones
+* singular name across api call
+* removed broken api's and add new api's
+* Kiali Client 0.40
+
+0.3.7
+-----
+
+* Updating to 0.3.7
+
+0.3.6
+-----
+
+* Updating Client to 0.3.6
+
+0.3.5
+-----
+
+* 0.3.5 - Updating Circuit Breaker names
+
+0.3.4
+-----
+
+* 0.3.4 - Adding hasCircuitBreaker and GroupBy
+* Changes on JSON Section
+
+0.3.3
+-----
+
+* Kiali Python 0.3.3
+* Changing Identation Level on README
+* Kiali Pip Module Inital Commit
