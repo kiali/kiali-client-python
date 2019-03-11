@@ -32,6 +32,9 @@ class KialiApiConnector(ABC):
         if http_method is 'GET':
             return self.get(url=url, params=params)
 
+        if http_method is 'POST':
+            return self.post(url=url, params=params, data=data)
+
         if http_method is 'PATCH':
             return self.patch(url=url, params=params, data=data)
 
@@ -43,13 +46,17 @@ class KialiApiConnector(ABC):
         session = self.create_session()
         return session.get(url=self.retrieve_url(url), verify=self.verify, params=params)
 
+    def post(self, url, params=None):
+        session = self.create_session()
+        return session.post(url=self.retrieve_url(url), verify=self.verify, data=data, params=params)
+
     def patch(self, url, data, params=None):
         session = self.create_session()
-        return session.patch(url=self.retrieve_url(url), data=data, params=params)
+        return session.patch(url=self.retrieve_url(url), verify=self.verify, data=data, params=params)
 
     def delete(self, url, data, params=None):
         session = self.create_session()
-        return session.delete(url=self.retrieve_url(url), data=data, params=params)
+        return session.delete(url=self.retrieve_url(url), verify=self.verify, data=data, params=params)
 
 
 class KialiHTTPSApiConnector(KialiApiConnector):
