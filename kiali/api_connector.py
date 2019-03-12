@@ -46,7 +46,7 @@ class KialiApiConnector(ABC):
         session = self.create_session()
         return session.get(url=self.retrieve_url(url), verify=self.verify, params=params)
 
-    def post(self, url, params=None):
+    def post(self, url, data, params=None):
         session = self.create_session()
         return session.post(url=self.retrieve_url(url), verify=self.verify, data=data, params=params)
 
