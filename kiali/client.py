@@ -12,7 +12,8 @@ class KialiClient():
 
 
         if auth_type == 'no-auth':
-            self.api_connector = KialiNoAuthApiConnector(hostname=hostname, scheme=scheme, port=port, verify=verify)
+            #self.api_connector = KialiNoAuthApiConnector(hostname=hostname, scheme=scheme, port=port, verify=verify, max_retries=max_retries)
+            self.api_connector = KialiNoAuthApiConnector(hostname=hostname, scheme=scheme, port=port, verify=verify, max_retries=max_retries)
 
     # Facade Pattern
     def request(self, method_name=None, path=None, params=None, plain_url=None, http_method='GET', data=None):

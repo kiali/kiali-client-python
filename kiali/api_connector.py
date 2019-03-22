@@ -75,7 +75,7 @@ class KialiNoAuthApiConnector(KialiApiConnector):
         Creates new client for Kiali based on HTTP
         """
 
-    def __init__(self, hostname, port, scheme, verify):
+    def __init__(self, hostname, port, scheme, verify, max_retries):
         super().__init__(hostname=hostname, port=port, scheme=scheme,
-                         auth=None, verify=verify)
+                         auth=None, verify=verify, max_retries=max_retries)
 
