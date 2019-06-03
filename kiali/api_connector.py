@@ -1,30 +1,31 @@
 from __future__ import unicode_literals
-
-from abc import ABC
 import urllib3
 import requests
 import requests.utils
 from requests.auth import HTTPBasicAuth
 
 
-class KialiApiConnector(ABC):
+class KialiApiConnector():
 
-    def __init__(self, hostname, port, scheme, verify, auth, max_retries):
+    def __init__(self, hostname, port, scheme, verify, auth, max_retries, cookies=None):
         self.hostname = hostname
         self.port = port
+        self.cookies = cookies
         self.scheme = scheme
         self.auth = auth
         self.verify = verify
         self.max_retries = max_retries
 
     def retrieve_url(self, path):
-        return requests.utils.urlunparse((self.scheme, (self.hostname + ":" +str(self.port)), path, None, None, None))
+        return requests.utils.urlunparse((self.scheme, self.hostname, path, None, None, None))
 
     def create_session(self):
         session = requests.Session()
         session.auth = self.auth
+        if self.cookies != None:
+            session.cookies = self.cookies
         requests.adapters.HTTPAdapter(max_retries=self.max_retries)
-        session.headers.update({'Host': self.hostname, 'Content-Type': 'application/json'})
+        session.headers.update({'Content-Type': 'application/json'})
         return session
 
     # Factory Method of HTTP Request
@@ -79,3 +80,17 @@ class KialiNoAuthApiConnector(KialiApiConnector):
         super().__init__(hostname=hostname, port=port, scheme=scheme,
                          auth=None, verify=verify, max_retries=max_retries)
 
+class KialiOAuthApiConnector(KialiApiConnector):
+    """
+        Creates new client for Kiali based on OAuth
+        """
+
+    def __init__(self, hostname, port, scheme, verify, max_retries, swagger, token):
+        super().__init__(hostname=hostname, port=port, scheme=scheme,
+                         auth=None, verify=verify, max_retries=max_retries)
+
+        oauth_url = self.retrieve_url(swagger.construct_url('Authenticate'))
+        oauth_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        oauth_payload = "access_token=" + token + "&expires_in=86400"
+        response = requests.request("POST", oauth_url, data=oauth_payload, headers=oauth_headers, verify=verify)
+        self.cookies = response.cookies
