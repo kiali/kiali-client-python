@@ -23,7 +23,7 @@ Another parameters possible to use with Client
 * auth_type (default: `https-user-password`, options: `no-auth`; `oauth`)
 * username (default: `admin`)
 * password (default: `admin`)
-* token (default: ``)
+* token (use when you are using `oauth` token. it is the openshift token for the account )
 * verify   (default: `False`) - used for verify SSL certificates
 * swagger_address (default: [Swagger](https://raw.githubusercontent.com/kiali/kiali/master/swagger.json) - address to swagger file
 
