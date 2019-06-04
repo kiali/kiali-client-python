@@ -1,4 +1,6 @@
 Pipfile.lock
 build/
 dist/
+tests/
+.vscode/
 kiali_client.egg-info/
