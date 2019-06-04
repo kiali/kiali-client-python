@@ -1,13 +1,14 @@
 # Introduction
+
 This repository includes the necessary Python client libraries to access Kiali remotely
 
 ## Installation
 
-To install, run ``python setup.py install`` if you installed from source code, or ``pip install kiali-client`` if using pip.
-
+* To install, run ``python setup.py install`` if you installed from source code, or ``pip install kiali-client`` if using pip.
 
 ## Create Client Connections
-To start a Kiali Client, use KialiClient() method. It requires the `host`, `username` and `password` parameters
+
+* To start a Kiali Client, use KialiClient() method. It requires the `host`, `username` and `password` parameters
 
 ```python
 >>> from kiali import KialiClient
@@ -15,24 +16,27 @@ To start a Kiali Client, use KialiClient() method. It requires the `host`, `user
 ```
 
 Another parameters possible to use with Client
+
 * host (default: `localhost`)
 * scheme (default: `http`, options: `https` and `http`
 * port (default: `443`)
-* auth_type (default: `https-user-password`, options: `no-auth`; oauth will be added)
+* auth_type (default: `https-user-password`, options: `no-auth`; `oauth`)
 * username (default: `admin`)
 * password (default: `admin`)
+* token (default: ``)
 * verify   (default: `False`) - used for verify SSL certificates
-* swagger_address (default: https://raw.githubusercontent.com/kiali/kiali/master/swagger.json') - address to swagger file
+* swagger_address (default: [Swagger](https://raw.githubusercontent.com/kiali/kiali/master/swagger.json) - address to swagger file
 
 ## Response Metadata
 
-- json
-- text
-- status_code
-- url
-- elapsed (Request response time)
+* json
+* text
+* status_code
+* url
+* elapsed (Request response time)
 
 Usage Examples:
+
 ```python
 >>> client.request(method_name='getConfig').json()
 {'istioNamespace': 'istio-system', 'istioLabels': {'AppLabelName': 'app', 'VersionLabelName': 'version'}}
@@ -49,15 +53,17 @@ Usage Examples:
 >>> client.request(method_name='serviceList', path={'namespace': 'istio-system'}).elapsed
 datetime.timedelta(seconds=1, microseconds=859915)
 ```
+
 ## Creating a Request on Kiali Client
 
 ## Methods Available
 
 ## Root
 
-- This method will return the status of kiali.
+This method will return the status of kiali.
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='Root').json()
 {'status': {'Kiali console version': '0.12.0-SNAPSHOT.2937-local-261fb4806afc5c853b097e3cd24e750c691ea6da', 'Kiali core commit hash':'d1efd8cf6b6a2c56301aa2bb14519b3904e258b0', 'Kiali core version': 'v0.12.0-SNAPSHOT', 'Kiali state': 'running'}, 'externalServices':[{'name':'Prometheus', 'version': '2.3.1'}, {'name': 'Kubernetes', 'version': 'v1.11.0+d4cacc0'}, {'name': 'Jaeger',   'url': 'https://jaeger-query-istio-system.host.com'}, {'name': 'Grafana', 'url': 'http://grafana-istio-system.host.com'}], 'warningMessages': []}
@@ -65,9 +71,10 @@ Usage Example:
 
 ## jaegerInfo
 
-- This method will return Jaeger URL.
+* This method will return Jaeger URL.
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='jaegerInfo').json()
 {'url': 'https://jaeger-query-istio-system.host.com'}
@@ -75,7 +82,7 @@ Usage Example:
 
 ## grafanaInfo
 
-- This method will return Grafana URL and other descriptors.
+* This method will return Grafana URL and other descriptors.
 
 ```python
 >>> client.request(method_name='grafanaInfo').json()
@@ -84,9 +91,10 @@ Usage Example:
 
 ## getStatus
 
-- This method will return the versions of kiali, kubernetes and Prometheus also will display grafana and Jaeger URL's.
+* This method will return the versions of kiali, kubernetes and Prometheus also will display grafana and Jaeger URL's.
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='getStatus').json()
 {'status': {'Kiali console version': '0.12.0-SNAPSHOT.2937-local-261fb4806afc5c853b097e3cd24e750c691ea6da', 'Kiali core commit hash':'d1efd8cf6b6a2c56301aa2bb14519b3904e258b0', 'Kiali core version': 'v0.12.0-SNAPSHOT', 'Kiali state': 'running'}, 'externalServices': [{'name': 'Prometheus', 'version': '2.3.1'}, {'name': 'Kubernetes', 'version': 'v1.11.0+d4cacc0'}, {'name': 'Jaeger', 'url': 'https://jaeger-query-istio-system.host.com'}, {'name': 'Grafana', 'url': 'http://grafana-istio-system.host.com'}], 'warningMessages': []}
@@ -94,9 +102,10 @@ Usage Example:
 
 ## getConfig
 
-- This method will return kiali config.
+* This method will return kiali config.
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='getConfig').json()
 {'istioNamespace': 'istio-system', 'istioLabels': {'AppLabelName': 'app', 'VersionLabelName': 'version'}}
@@ -104,9 +113,10 @@ Usage Example:
 
 ## GetToken
 
-- This method will return token information and the expiry date.
+* This method will return token information and the expiry date.
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='GetToken').json()
 {'token': '<TokenInformation>', 'expired_at': '2018-12-14 13:44:29.113973696 +0000 UTC m=+107438.008998940'}
@@ -114,9 +124,10 @@ Usage Example:
 
 ## namespaceList
 
-- This method will return list of available namespaces.
+* This method will return list of available namespaces.
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='namespaceList').json()
 [{'name': 'bookinfo'}, {'name': 'bookinfo2'}, {'name': 'default'}, {'name': 'istio-examples'}, {'name': 'istio-system'}, {'name': 'management-infra'}]
@@ -124,10 +135,11 @@ Usage Example:
 
 ## namespaceMetrics
 
-- This method will return metrics of specified namespace
-- Required Parameter (`namespace`)
+* This method will return metrics of specified namespace
+* Required Parameter (`namespace`)
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='namespaceMetrics', path={'namespace': 'istio-system'}).json()
 {'metrics': {'request_count': {'matrix': [{'metric': {}, 'values': [[1544707080, '1.982'], [1544707095, '2.036']
@@ -135,10 +147,11 @@ Usage Example:
 
 ## namespaceHealth
 
-- This method will return a dictonary with namespace `Health`
-- Required Parameter (`namespace`)
+* This method will return a dictonary with namespace `Health`
+* Required Parameter (`namespace`)
 
 Usage Example:
+
 ```python
 >>> client.request(method_name='namespaceHealth', path={'namespace': 'istio-system'}).json()
 {'details': {'envoy': [{'inbound': {'healthy': 0, 'total': 0}, 'outbound': {'healthy': 0, 'total': 0}, 'service': 'details'}], 'workloadStatuses':[{'name': 'details-v1', 'replicas': 1, 'available': 1}], 'requests': {'errorRatio': -1, 'inboundErrorRatio': -1, 'outboundErrorRatio': -1}}
@@ -146,8 +159,8 @@ Usage Example:
 
 ## namespaceValidations
 
-- This method will return validations for the specified namespace
-- Required Parameter (`namespace`)
+* This method will return validations for the specified namespace
+* Required Parameter (`namespace`)
 
 Usage Example:
 
@@ -158,8 +171,8 @@ Usage Example:
 
 ## istioConfigList
 
-- This method will return istio configurations list for the specified namespace
-- Required Parameter (`namespace`)
+* This method will return istio configurations list for the specified namespace
+* Required Parameter (`namespace`)
 
 Usage Example:
 
@@ -170,8 +183,8 @@ Usage Example:
 
 ## istioConfigDetails
 
-- This method will return istio configurations for the specified object in the specified namespace.
-- Required Parameter (`namespace`, `object_type`, `object`)
+* This method will return istio configurations for the specified object in the specified namespace.
+* Required Parameter (`namespace`, `object_type`, `object`)
 
 ```python
 >>> client.request(method_name='istioConfigDetails', path={'namespace': 'istio-system', 'object_type': 'rules', 'object': 'promtcp'}).json()
@@ -181,8 +194,8 @@ Usage Example:
 
 ## objectValidations
 
-- This method will return validations for the specified object in specified namespace
-- Required Parameter (`namespace`, `object_type`, `object`)
+* This method will return validations for the specified object in specified namespace
+* Required Parameter (`namespace`, `object_type`, `object`)
 
 ```python
 >>> client.request(method_name='objectValidations', path={'namespace': 'bookinfo', 'object_type': 'virtualservices', 'object': 'bookinfo-vs'}).json()
@@ -191,8 +204,8 @@ Usage Example:
 
 ## serviceList
 
-- This method will return list of services in the specified namespace.
-- Required Parameter (`namespace`)
+* This method will return list of services in the specified namespace.
+* Required Parameter (`namespace`)
 
 ```python
 >>> client.request(method_name='serviceList', path={'namespace': 'istio-system'}).json()
@@ -201,8 +214,8 @@ Usage Example:
 
 ## serviceDetails
 
-- This method will return details of a specified service in the specified namespace.
-- Required Parameter (`namespace`, `service`)
+* This method will return details of a specified service in the specified namespace.
+* Required Parameter (`namespace`, `service`)
 
 ```python
 >>> client.request(method_name='serviceDetails', path={'namespace': 'istio-system', 'service': 'kiali'}).json()
@@ -211,8 +224,8 @@ Usage Example:
 
 ## serviceMetrics
 
-- This method will return a dictonary of Service metrics.
-- Required Parameter (`namespace`, `service`)
+* This method will return a dictonary of Service metrics.
+* Required Parameter (`namespace`, `service`)
 
 ```python
 >>> client.request(method_name='serviceMetrics', path={'namespace': 'istio-system', 'service': 'kiali'}).json()
@@ -221,8 +234,8 @@ Usage Example:
 
 ## serviceHealth
 
-- This method will return a dictonary with service `Health`
-- Required Parameter (`namespace`, `service`)
+* This method will return a dictonary with service `Health`
+* Required Parameter (`namespace`, `service`)
 
 ```python
 >>> client.request(method_name='serviceHealth', path={'namespace': 'istio-system', 'service': 'kiali'}).json()
@@ -232,8 +245,8 @@ Usage Example:
 
 ## serviceValidations
 
-- This method will return validations for the specified service in specified namespace
-- Required Parameter (`namespace`, `service`)
+* This method will return validations for the specified service in specified namespace
+* Required Parameter (`namespace`, `service`)
 
 ```python
 >>> client.request(method_name='serviceValidations', path={'namespace': 'istio-system', 'service': 'kiali'}).json()
@@ -242,8 +255,8 @@ Usage Example:
 
 ## appList
 
-- This method will return list of applications in the specified namespace.
-- Required Parameter (`namespace`)
+* This method will return list of applications in the specified namespace.
+* Required Parameter (`namespace`)
 
 ```python
 >>> client.request(method_name='appList', path={'namespace': 'istio-system'}).json()
@@ -253,8 +266,8 @@ Usage Example:
 
 ## appMetrics
 
-- This method will return a dictonary of application metrics.
-- Required Parameter (`namespace`, `app`)
+* This method will return a dictonary of application metrics.
+* Required Parameter (`namespace`, `app`)
 
 ```python
 >>> client.request(method_name='appMetrics', path={'namespace': 'istio-system', 'app': 'kiali'}).json()
@@ -263,8 +276,8 @@ Usage Example:
 
 ## appDetails
 
-- This method will return details of specified application in the namespace.
-- Required Parameter (`namespace`, `app`)
+* This method will return details of specified application in the namespace.
+* Required Parameter (`namespace`, `app`)
 
 ```python
 >>> client.request(method_name='appDetails', path={'namespace': 'istio-system', 'app': 'kiali'}).json()
@@ -273,8 +286,8 @@ Usage Example:
 
 ## appHealth
 
-- This method will return a dictonary with app `Health`
-- Required Parameter (`namespace`, `app`)
+* This method will return a dictonary with app `Health`
+* Required Parameter (`namespace`, `app`)
 
 ```python
 >>> client.request(method_name='appHealth', path={'namespace': 'istio-system', 'app': 'kiali'}).json()
@@ -283,8 +296,8 @@ Usage Example:
 
 ## workloadList
 
-- This method will return list of workloads in the specified namespace.
-- Required Parameter (`namespace`)
+* This method will return list of workloads in the specified namespace.
+* Required Parameter (`namespace`)
 
 ```python
 >>> client.request(method_name='workloadList', path={'namespace': 'istio-system'}).json()
@@ -293,8 +306,8 @@ Usage Example:
 
 ## workloadDetails
 
-- This method will return details of specified workloads in the namespace.
-- Required Parameter (`namespace`, `workload`)
+* This method will return details of specified workloads in the namespace.
+* Required Parameter (`namespace`, `workload`)
 
 ```python
 >>> client.request(method_name='workloadDetails', path={'namespace': 'bookinfo', 'workload':'details-v1'}).json()
@@ -303,8 +316,8 @@ Usage Example:
 
 ## workloadHealth
 
-- This method will return a dictonary with workload `Health`
-- Required Parameter (`namespace`, `workload`)
+* This method will return a dictonary with workload `Health`
+* Required Parameter (`namespace`, `workload`)
 
 ```python
 >>> client.request(method_name='workloadHealth', path={'namespace': 'bookinfo', 'workload':'details-v1'}).json()
@@ -313,8 +326,8 @@ Usage Example:
 
 ## workloadMetrics
 
-- This method will return a dictonary of workload metrics.
-- Required Parameter (`namespace`, `workload`)
+* This method will return a dictonary of workload metrics.
+* Required Parameter (`namespace`, `workload`)
 
 ```python
 >>> client.request(method_name='workloadMetrics', path={'namespace': 'bookinfo', 'workload':'details-v1'}).json()
@@ -324,9 +337,9 @@ Usage Example:
 
 ## graphNamespaces
 
-- This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
-- Required Parameter (`namespaces`)
-- Additional Parameters that can be included eg: {params={'graphType': 'app', duration: '60s'}}
+* This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
+* Required Parameter (`namespaces`)
+* Additional Parameters that can be included eg: {params={'graphType': 'app', duration: '60s'}}
 
 ```python
 >>> client.request(method_name='graphNamespaces', params={'namespaces': 'bookinfo', 'graphType': 'versionedApp', 'duration': '60s'}).json()
@@ -337,8 +350,8 @@ Usage Example:
 
 ## graphService
 
-- This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
-- Required Parameter (`namespace`)
+* This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
+* Required Parameter (`namespace`)
 
 ```python
 >>> client.request(method_name='graphService', path={'namespace': 'bookinfo', 'service': 'mongodb'}).json()
@@ -347,8 +360,8 @@ Usage Example:
 
 ## graphWorkload
 
-- This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
-- Required Parameter (`namespace`)
+* This method will return a `Graph`, containing a dictionary with array of `Node` and array of `Edges`
+* Required Parameter (`namespace`)
 
 ```python
 >>> client.request(method_name='graphWorkload', path={'namespace': 'bookinfo', 'workload': 'mongodb-v1'}).json()
