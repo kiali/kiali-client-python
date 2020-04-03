@@ -89,7 +89,7 @@ class KialiOAuthApiConnector(KialiApiConnector):
         super().__init__(hostname=hostname, port=port, scheme=scheme,
                          auth=None, verify=verify, max_retries=max_retries)
 
-        oauth_url = self.retrieve_url(swagger.construct_url('Authenticate'))
+        oauth_url = self.retrieve_url(swagger.construct_url('authenticate'))
         oauth_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         oauth_payload = "access_token=" + token + "&expires_in=86400"
         response = requests.request("POST", oauth_url, data=oauth_payload, headers=oauth_headers, verify=verify)
